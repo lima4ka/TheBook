@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мурка Сенсей — Сказка о Котах-Хранителях</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --cream: #f5f0e8;
+            --parchment: #ede5d0;
+            --warm-white: #faf7f2;
+            --ink: #2c2416;
+            --ink-light: #4a3f2e;
+            --sepia: #8b6f47;
+            --sepia-light: #b89a6e;
+            --sepia-pale: #d4b896;
+            --rust: #9e5a3a;
+            --gold: #c4963c;
+            --gold-pale: #e8d5a3;
+            --border: #c8b48a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            background-color: var(--cream);
+        }
+
+        body {
+            background-color: var(--cream);
+            color: var(--ink);
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 19px;
+            line-height: 1.85;
+            font-weight: 400;
+        }
+
+        /* Texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.6;
+        }
+
+        .page {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 80px 40px 120px;
+        }
+
+        /* Ornamental divider */
+        .ornament {
+            text-align: center;
+            color: var(--sepia-light);
+            font-size: 22px;
+            margin: 48px 0;
+            letter-spacing: 12px;
+            opacity: 0.7;
+        }
+
+        .ornament-thin {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 32px 0;
+            color: var(--border);
+        }
+
+        .ornament-thin::before,
+        .ornament-thin::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--border), transparent);
+        }
+
+        .ornament-thin span {
+            font-size: 14px;
+            letter-spacing: 3px;
+            color: var(--sepia-light);
+        }
+
+        /* Title block */
+        .book-header {
+            text-align: center;
+            padding: 60px 0 40px;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .book-header::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--gold);
+            margin: 20px auto 0;
+            border-radius: 2px;
+        }
+
+        .book-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 13px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--sepia);
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .book-title {
+            font-family: 'IM Fell English', Georgia, serif;
+            font-size: 52px;
+            color: var(--ink);
+            line-height: 1.15;
+            margin-bottom: 16px;
+            font-style: italic;
+        }
+
+        .book-title span {
+            display: block;
+            font-size: 28px;
+            font-style: normal;
+            color: var(--sepia);
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            margin-top: 8px;
+            letter-spacing: 1px;
+        }
+
+        /* Chapter headers */
+        .chapter {
+            margin-bottom: 42px;
+        }
+
+        .chapter-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 11px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--sepia-light);
+            font-weight: 300;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .chapter-title {
+            font-family: 'IM Fell English', Georgia, serif;
+            font-size: 30px;
+            color: var(--ink);
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+
+        .chapter-year {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            color: var(--rust);
+            letter-spacing: 3px;
+            font-style: italic;
+            margin-bottom: 28px;
+            display: block;
+            font-weight: bold;
+        }
+
+        /* Text styles */
+        p {
+            margin-bottom: 20px;
+            color: var(--ink-light);
+            font-weight: 400;
+        }
+
+        .dropcap::first-letter {
+            font-family: 'IM Fell English', Georgia, serif;
+            font-size: 72px;
+            line-height: 0.75;
+            float: left;
+            margin: 8px 10px 0 0;
+            color: var(--sepia);
+            font-style: italic;
+        }
+
+        #dropcapText1 {
+            margin-bottom: 20px;
+            color: var(--ink-light);
+            font-weight: 400;
+            width: 520px;
+        }
+
+        .quote-block {
+            border-left: 3px solid var(--gold);
+            padding: 16px 24px;
+            margin: 32px 0;
+            background: linear-gradient(to right, rgba(196, 150, 60, 0.06), transparent);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .quote-block p {
+            font-style: italic;
+            font-size: 20px;
+            color: var(--ink);
+            margin: 0;
+            line-height: 1.7;
+        }
+
+        .quote-attribution {
+            font-size: 13px;
+            color: var(--sepia);
+            margin-top: 10px !important;
+            letter-spacing: 1px;
+        }
+
+        /* Image placements */
+        .img-block-right {
+            float: right;
+            margin: 0 0 4px 16px;
+            width: 650px;
+            clear: right;
+        }
+
+        .img-block-right1 {
+            float: right;
+            margin: 0 0 4px 16px;
+            width: 650px;
+            clear: right;
+        }
+
+        .img-block-left {
+            float: left;
+            margin: 0 36px 24px 0;
+            width: 260px;
+            clear: left;
+            height: 310px;
+        }
+
+        .img-block-full {
+            width: 100%;
+            margin: 32px 0;
+            clear: both;
+        }
+
+        .img-block-center {
+            display: block;
+            margin: 12px auto;
+            width: 0px;
+            clear: both;
+            height: 0px;
+        }
+
+        .img-placeholder {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .img-placeholder1 {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .img-block-right .img-placeholder {
+            height: 180px;
+            width: 610px;
+        }
+
+        .img-block-right1 .img-placeholder1 {
+            height: 340px;
+            width: 610px;
+        }
+
+        .img-block-left .img-placeholder {
+            height: 320px;
+            width: 340px;
+            left: -70px;
+        }
+
+        .img-block-full .img-placeholder {
+            height: 410px;
+            width: 695px;
+        }
+
+        .img-block-center .img-placeholder {
+            height: 390px;
+            width: 700px;
+            transform: rotate(90deg);
+            top: -123px;
+        }
+
+        .img-placeholder svg {
+            width: 48px;
+            height: 48px;
+            opacity: 0.25;
+            color: var(--sepia);
+            margin-bottom: 8px;
+        }
+
+        .img-placeholder1 svg {
+            width: 48px;
+            height: 48px;
+            opacity: 0.25;
+            color: var(--sepia);
+            margin-bottom: 8px;
+        }
+
+        .img-placeholder-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: var(--sepia);
+            opacity: 0.5;
+            text-transform: uppercase;
+            text-align: center;
+            padding: 0 16px;
+        }
+
+        .img-placeholder1-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: var(--sepia);
+            opacity: 0.5;
+            text-transform: uppercase;
+            text-align: center;
+            padding: 0 16px;
+        }
+
+        .img-caption {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 13px;
+            color: var(--sepia);
+            text-align: center;
+            margin-top: 8px;
+            font-style: italic;
+            opacity: 0.8;
+        }
+
+        .clearfix::after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+
+        /* Epilogue */
+        .epilogue {
+            text-align: center;
+            padding: 60px 40px;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            margin-top: 72px;
+            background: linear-gradient(to bottom, var(--parchment), var(--warm-white));
+        }
+
+        .epilogue p {
+            font-family: 'IM Fell English', Georgia, serif;
+            font-size: 22px;
+            font-style: italic;
+            color: var(--ink);
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .epilogue p+p {
+            margin-top: 12px;
+            font-size: 16px;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: normal;
+            color: var(--sepia);
+            letter-spacing: 1px;
+        }
+
+        /* Footer */
+        .book-footer {
+            text-align: center;
+            padding: 48px 0 0;
+            color: var(--sepia-light);
+            font-size: 13px;
+            letter-spacing: 4px;
+            font-family: 'Cormorant Garamond', serif;
+            opacity: 0.6;
+        }
+
+        /* Inline SVG art — decorative cat eye */
+        .eye-ornament {
+            display: block;
+            margin: 0 auto 12px;
+        }
+
+        @media (max-width: 600px) {
+            .page {
+                padding: 40px 20px 80px;
+            }
+
+            .book-title {
+                font-size: 36px;
+            }
+
+            .img-block-right,
+            .img-block-right1,
+            .img-block-left {
+                float: none;
+                width: 100%;
+                margin: 24px 0;
+            }
+
+            .img-block-center {
+                width: 100%;
+            }
+        }
+
+        #murka-block {
+            height: 100px;
+            width: 610px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page">
+
+        <!-- Header -->
+        <header class="book-header">
+            <svg class="eye-ornament" width="48" height="28" viewBox="0 0 48 28" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="24" cy="14" rx="22" ry="12" stroke="#c4963c" stroke-width="1.2" fill="none" />
+                <ellipse cx="24" cy="14" rx="6" ry="10" fill="#8b6f47" opacity="0.4" />
+                <ellipse cx="24" cy="14" rx="3" ry="7" fill="#2c2416" opacity="0.6" />
+                <circle cx="22" cy="11" r="1.5" fill="white" opacity="0.7" />
+            </svg>
+            <p class="book-subtitle">Сказка о хранителях и кефирном грибе</p>
+            <h1 class="book-title">
+                Мурка Сенсей
+                <span>и Спасение Вселенной</span>
+            </h1>
+        </header>
+
+        <!-- Chapter I: Котомак -->
+        <section class="chapter">
+
+            <div class="img-block-right">
+                <div class="img-placeholder">
+                    <img src="https://raw.githubusercontent.com/lima4ka/TheBook/main/plantyOfCats.png"
+                        alt="Система Альдебарана">
+                </div>
+                <span class="chapter-label">Глава первая</span>
+            </div>
+
+            <p class="dropcap">В далёкой-далёкой системе Альдебарана, на ещё не изученной людьми планете Котомак жили
+                трёхглазые коты, позднее прозванные самими людьми как «коты-опекуны».</p>
+
+            <p>С самого рождения, а размножались они платонически, посредством пламенных взглядов, обитатели Котомак
+                посвящали себя заботе о менее развитых и более слабых цивилизациях. Их галактическая миссия заключалась
+                в том, чтобы опекать неразумные расы и незаметно направлять их к процветанию, чтобы окунуть головы
+                других существ в собственный куб счастья и интересностей.</p>
+
+            <div class="clearfix"></div>
+        </section>
+
+        <div class="ornament">✦ ✦ ✦</div>
+
+        <!-- Chapter II: Пациент ноль -->
+        <section class="chapter">
+            <span class="chapter-label">Глава вторая</span>
+            <h2 class="chapter-title">Пациент ноль</h2>
+            <span class="chapter-year">Планета Земля · 2061 год</span>
+
+            <div class="img-block-left">
+                <div class="img-placeholder">
+                    <img src="https://raw.githubusercontent.com/lima4ka/TheBook/main/photoSporii.png"
+                        alt="Комета Галлея">
+                </div>
+            </div>
+
+            <p class="dropcap">Шли века, и одна из самых трагических страниц космической истории началась на планете
+                Земля. Всё пошло не по плану, когда комета Галлея, которую астрономы, казалось бы, высчитали до
+                пикометра, прошла в опасной близости от земной атмосферы, высеивая в неё мириады спор неизвестного
+                происхождения.</p>
+
+            <p>Споры полностью завладели телом и разумом человеческих организмов. Человек переставал быть собой,
+                превращаясь в биомашину для нужд чужеродного интеллекта. Обнаружив преимущества телесного
+                взаимодействия, они в короткие сроки создали сверхцивилизацию и, не мешкая, начали захватывать планету
+                за планетой, галактику за галактикой, в конечном итоге заполонив собой всю вселенную.</p>
+
+            <div class="clearfix"></div>
+        </section>
+
+        <div class="ornament">✦ ✦ ✦</div>
+
+        <!-- Chapter III: Армагеддон -->
+        <section class="chapter">
+            <span class="chapter-label">Глава третья</span>
+            <h2 class="chapter-title">Армагеддон</h2>
+            <span class="chapter-year">3030 год</span>
+
+            <p class="dropcap">К 3030 году Вселенная пала. Галактики одна за другой превращались в безмолвные
+                инкубаторы.</p>
+
+            <div class="img-block-full">
+                <div class="img-placeholder">
+                    <img src="https://raw.githubusercontent.com/lima4ka/TheBook/main/milkCat.png"
+                        alt="Вселенная, охваченная спорами">
+                </div>
+            </div>
+
+            <p>Коты-опекуны вывели единственное «лекарство» — кефирный гриб. Его симбиотическая структура создавала в
+                организмах носителей невидимую защитную плёнку, через которую споры не могли пробиться. Вторая часть
+                плана родилась почти сразу: построить машину времени и пространства, чтобы отправиться в прошлое и
+                привить человечеству иммунитет задолго до катастрофы.</p>
+        </section>
+
+        <div class="ornament">✦ ✦ ✦</div>
+
+        <!-- Chapter IV: Попытка №1 -->
+        <section class="chapter">
+            <span class="chapter-label">Глава четвёртая</span>
+            <h2 class="chapter-title">Попытка № 1</h2>
+            <span class="chapter-year">СССР · 1986 год</span>
+
+            <div class="img-block-right1">
+                <div class="img-placeholder1">
+                    <img src="https://raw.githubusercontent.com/lima4ka/TheBook/main/murkacot.png" alt="Советский быт">
+                </div>
+            </div>
+
+            <p class="dropcap">Мурка Сенсей, руководитель проекта по борьбе со спорами, был выбран для миссии по
+                предотвращению коллапса цивилизации. Машина доставила его на Землю в 1986 год — в Советский Союз.</p>
+
+            <p>Кот-опекун, приняв облик пушистого домашнего любимца, начал продвигать идею здорового образа жизни и
+                внедрения кефирных культур в человеческие организмы.</p>
+
+            <p>Но земляне оказались слишком несерьёзны. Жёлтое существо внушало им страх и отторжение.</p>
+
+            <div class="clearfix"></div>
+        </section>
+
+        <div class="ornament">✦ ✦ ✦</div>
+
+        <!-- Chapter V: Попытка №2 -->
+        <section class="chapter">
+            <span class="chapter-label">Глава пятая</span>
+            <h2 class="chapter-title">Попытка № 2</h2>
+            <span class="chapter-year">2019 год</span>
+
+            <div class="img-block-center">
+                <div class="img-placeholder">
+                    <img src="https://raw.githubusercontent.com/lima4ka/TheBook/main/senseiCat.png"
+                        alt="Мурка Сенсей в прямом эфире">
+                </div>
+            </div>
+            <div id="dropcapText1">
+                <p class="dropcap">Обнаружив непонимание со стороны представителей вида Хомо сапиенс,
+                    Мурка Сенсей решился
+                    на ещё одну попытку и переместился в 2019 год.</p>
+
+                <p>Мир изменился до неузнаваемости. Благодаря широкому распространению VR-технологий, Сенсей
+                    наконец явил себя людям таким, какой он есть. В прямых эфирах и виртуальных пространствах появился
+                    трёхглазый кот. К его удивлению, тьма не наступила — напротив, многие люди оказались очарованы
+                    увиденным.</p>
+
+                <p>Теперь он мог открыто говорить о преимуществах коллективного иммунитета, здорового образа жизни и,
+                    разумеется, ежедневного употребления кефира.</p>
+            </div>
+
+            <div class="clearfix"></div>
+        </section>
+
+        <!-- Epilogue -->
+        <div class="epilogue">
+            <p>Где-то в вашем кефире живёт миллиард крошечных союзников.</p>
+            <p>Кто знает, кто их послал.</p>
+        </div>
+
+        <footer class="book-footer">
+            <p>✦ &nbsp; конец &nbsp; ✦</p>
+        </footer>
+
+    </div>
+
+</body>
+
+</html>
